@@ -63,6 +63,20 @@ const Dashboard: React.FC = () => {
       api.get('foods').then(response => {
         setFoods(response.data);
       });
+
+      if (searchValue) {
+        api.get(`foods/`, { params: { name: searchValue } }).then(response => {
+          setFoods(response.data);
+        });
+      }
+
+      if (selectedCategory !== undefined) {
+        api
+          .get(`foods/`, { params: { category: selectedCategory } })
+          .then(response => {
+            setFoods(response.data);
+          });
+      }
     }
 
     loadFoods();
@@ -81,6 +95,7 @@ const Dashboard: React.FC = () => {
 
   function handleSelectCategory(id: number): void {
     // Select / deselect category
+    setSelectedCategory(id);
   }
 
   return (
