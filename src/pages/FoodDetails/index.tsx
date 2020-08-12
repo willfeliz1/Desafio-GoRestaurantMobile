@@ -55,6 +55,7 @@ interface Food {
   name: string;
   description: string;
   price: number;
+  thumbnail_url: string;
   image_url: string;
   formattedPrice: string;
   extras: Extra[];
@@ -145,11 +146,23 @@ const FoodDetails: React.FC = () => {
       0,
     );
 
-    return formatValue(foodQuantity * (sumExtraFood + food.price));
+    return foodQuantity * (sumExtraFood + food.price);
   }, [extras, food, foodQuantity]);
 
   async function handleFinishOrder(): Promise<void> {
     // Finish the order and save on the API
+
+    const { name, description, thumbnail_url } = food;
+
+    const data = {
+      name,
+      description,
+      price: cartTotal,
+      thumbnail_url,
+      extras,
+    };
+
+    api.post('/orders', data);
   }
 
   // Calculate the correct icon name
@@ -224,7 +237,9 @@ const FoodDetails: React.FC = () => {
         <TotalContainer>
           <Title>Total do pedido</Title>
           <PriceButtonContainer>
-            <TotalPrice testID="cart-total">{cartTotal}</TotalPrice>
+            <TotalPrice testID="cart-total">
+              {formatValue(cartTotal)}
+            </TotalPrice>
             <QuantityContainer>
               <Icon
                 size={15}
