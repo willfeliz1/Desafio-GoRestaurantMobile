@@ -8,6 +8,7 @@ import TabRoutes from './tab.routes';
 
 import Home from '../pages/Home';
 import FoodDetails from '../pages/FoodDetails';
+import OrderCreated from '../pages/OrderCreated';
 
 const App = createStackNavigator();
 
@@ -63,6 +64,7 @@ const AppRoutes: React.FC = () => (
           },
         })}
       />
+      <App.Screen name="OrderCreated" component={OrderCreated} />
     </App.Navigator>
   </NavigationContainer>
 );
