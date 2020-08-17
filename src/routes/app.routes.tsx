@@ -64,7 +64,14 @@ const AppRoutes: React.FC = () => (
           },
         })}
       />
-      <App.Screen name="OrderCreated" component={OrderCreated} />
+      <App.Screen
+        options={{
+          headerShown: false,
+          cardStyle: { opacity: 0.3, backgroundColor: '#000000' },
+        }}
+        name="OrderCreated"
+        component={OrderCreated}
+      />
     </App.Navigator>
   </NavigationContainer>
 );
