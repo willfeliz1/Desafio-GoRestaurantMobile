@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import Modal from '../../components/Modal';
-import { Container, Title, TouchableWithoutFeedback2 } from './styles';
+import { Container, Title } from './styles';
 
 interface IModalProps {
   isOpen: boolean;
@@ -14,6 +14,7 @@ interface IModalProps {
 
 const OrderCreated: React.FC = () => {
   const { reset } = useNavigation();
+  const [modalStatus, setModalStatus] = useState(true);
 
   const handleClosePressed = useCallback(() => {
     reset({
@@ -25,12 +26,14 @@ const OrderCreated: React.FC = () => {
   }, [reset]);
 
   return (
-    <Container>
-      <Modal isOpen>
-        <Icon name="smile" size={80} color="#39B100" />
-        <Title>Pedido confirmado!</Title>
-      </Modal>
-    </Container>
+    <Modal isOpen={modalStatus} ResetToHome={handleClosePressed}>
+      <TouchableWithoutFeedback onPress={() => setModalStatus(!modalStatus)}>
+        <Container>
+          <Icon name="smile" size={80} color="#39B100" />
+          <Title>Pedido confirmado!</Title>
+        </Container>
+      </TouchableWithoutFeedback>
+    </Modal>
   );
 };
 
