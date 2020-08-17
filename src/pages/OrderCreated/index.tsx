@@ -1,18 +1,35 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
+
 import Icon from 'react-native-vector-icons/Feather';
 
-import { Container, Title, ConfirmButton, ConfirmButtonText } from './styles';
+import { useNavigation } from '@react-navigation/native';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import Modal from '../../components/Modal';
+import { Container, Title, TouchableWithoutFeedback2 } from './styles';
+
+interface IModalProps {
+  isOpen: boolean;
+  setIsOpen: () => void;
+}
 
 const OrderCreated: React.FC = () => {
+  const { reset } = useNavigation();
+
+  const handleClosePressed = useCallback(() => {
+    reset({
+      routes: [{ name: 'MainBottom' }],
+      index: 0,
+    });
+
+    return true;
+  }, [reset]);
+
   return (
     <Container>
-      <Icon name="smile" size={80} />
-
-      <Title>Pedido efetuado</Title>
-
-      <ConfirmButton>
-        <ConfirmButtonText>Obrigado</ConfirmButtonText>
-      </ConfirmButton>
+      <Modal isOpen>
+        <Icon name="smile" size={80} color="#39B100" />
+        <Title>Pedido confirmado!</Title>
+      </Modal>
     </Container>
   );
 };
