@@ -74,7 +74,6 @@ const FoodDetails: React.FC = () => {
 
   useEffect(() => {
     async function loadFood(): Promise<void> {
-      // Load a specific food with extras based on routeParams id
       const response = await api.get<Food>(`foods/${routeParams.id}`);
 
       setFood({
@@ -94,7 +93,6 @@ const FoodDetails: React.FC = () => {
   }, [routeParams]);
 
   function handleIncrementExtra(id: number): void {
-    // Increment extra quantity
     setExtras(state => {
       return state.map(extraState => {
         if (extraState.id === id) {
@@ -107,8 +105,6 @@ const FoodDetails: React.FC = () => {
   }
 
   function handleDecrementExtra(id: number): void {
-    // Decrement extra quantity
-
     setExtras(
       extras.map(extraState =>
         extraState.id === id && extraState.quantity > 0
@@ -119,17 +115,14 @@ const FoodDetails: React.FC = () => {
   }
 
   function handleIncrementFood(): void {
-    // Increment food quantity
     setFoodQuantity(foodQuantity + 1);
   }
 
   function handleDecrementFood(): void {
-    // Decrement food quantity
     setFoodQuantity(foodQuantity > 1 ? foodQuantity - 1 : foodQuantity);
   }
 
   const toggleFavorite = useCallback(() => {
-    // Toggle if food is favorite or not
     if (isFavorite) {
       api.delete(`favorites/${food.id}`);
     } else {
@@ -140,20 +133,12 @@ const FoodDetails: React.FC = () => {
   }, [isFavorite, food]);
 
   const cartTotal = useMemo(() => {
-    // Calculate cartTotal
     const sumExtraFood = extras.reduce(
       (acc, extra) => acc + extra.quantity * extra.value,
       0,
     );
 
-    console.log('--------------------');
-    console.log('foodQuantity: ', foodQuantity);
-    console.log('sumExtraFood: ', sumExtraFood);
-    console.log('food.price: ', food.price);
-
     const Total = sumExtraFood + foodQuantity * food.price;
-
-    console.log(`Total: ${Total}`);
 
     return sumExtraFood + foodQuantity * food.price;
   }, [extras, food, foodQuantity]);
@@ -174,14 +159,12 @@ const FoodDetails: React.FC = () => {
     navigation.navigate('OrderCreated');
   }, [cartTotal, extras, food, navigation]);
 
-  // Calculate the correct icon name
   const favoriteIconName = useMemo(
     () => (isFavorite ? 'favorite' : 'favorite-border'),
     [isFavorite],
   );
 
   useLayoutEffect(() => {
-    // Add the favorite icon on the right of the header bar
     navigation.setOptions({
       headerRight: () => (
         <MaterialIcon
