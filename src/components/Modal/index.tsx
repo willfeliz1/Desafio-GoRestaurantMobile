@@ -17,6 +17,8 @@ const Modal: React.FC<IModalProps> = ({ children, isOpen, ResetToHome }) => {
 
   return (
     <ReactNativeModal
+      animationIn="fadeIn"
+      animationOut="fadeOut"
       onBackdropPress={ResetToHome}
       isVisible={modalStatus}
       style={{
