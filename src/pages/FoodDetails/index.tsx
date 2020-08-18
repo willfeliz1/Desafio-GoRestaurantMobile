@@ -149,9 +149,7 @@ const FoodDetails: React.FC = () => {
     return foodQuantity * (sumExtraFood + food.price);
   }, [extras, food, foodQuantity]);
 
-  async function handleFinishOrder(): Promise<void> {
-    // Finish the order and save on the API
-
+  const handleFinishOrder = useCallback(async () => {
     const { name, description, thumbnail_url } = food;
 
     const data = {
@@ -162,8 +160,10 @@ const FoodDetails: React.FC = () => {
       extras,
     };
 
-    api.post('/orders', data);
-  }
+    await api.post('/orders', data);
+
+    navigation.navigate('OrderCreated');
+  }, [cartTotal, extras, food, navigation]);
 
   // Calculate the correct icon name
   const favoriteIconName = useMemo(
