@@ -146,7 +146,16 @@ const FoodDetails: React.FC = () => {
       0,
     );
 
-    return foodQuantity * (sumExtraFood + food.price);
+    console.log('--------------------');
+    console.log('foodQuantity: ', foodQuantity);
+    console.log('sumExtraFood: ', sumExtraFood);
+    console.log('food.price: ', food.price);
+
+    const Total = sumExtraFood + foodQuantity * food.price;
+
+    console.log(`Total: ${Total}`);
+
+    return sumExtraFood + foodQuantity * food.price;
   }, [extras, food, foodQuantity]);
 
   const handleFinishOrder = useCallback(async () => {
