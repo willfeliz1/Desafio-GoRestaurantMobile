@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Image } from 'react-native';
 
 import api from '../../services/api';
@@ -29,16 +29,27 @@ interface Food {
 
 const Favorites: React.FC = () => {
   const [favorites, setFavorites] = useState<Food[]>([]);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     async function loadFavorites(): Promise<void> {
-      api.get('favorites').then(response => {
-        setFavorites(response.data);
-      });
+      const response = await api.get<Food[]>('favorites');
+
+      setFavorites(response.data);
     }
 
     loadFavorites();
   }, []);
+
+  const refreshFavorites = useCallback(async () => {
+    setRefresh(!refresh);
+
+    await api.get('favorites').then(response => {
+      setFavorites(response.data);
+
+      setRefresh(false);
+    });
+  }, [refresh]);
 
   return (
     <Container>
@@ -48,6 +59,8 @@ const Favorites: React.FC = () => {
 
       <FoodsContainer>
         <FoodList
+          onRefresh={refreshFavorites}
+          refreshing={refresh}
           data={favorites}
           keyExtractor={item => String(item.id)}
           renderItem={({ item }) => (
