@@ -55,6 +55,7 @@ interface Food {
   name: string;
   description: string;
   price: number;
+  category: number;
   thumbnail_url: string;
   image_url: string;
   formattedPrice: string;
@@ -92,6 +93,20 @@ const FoodDetails: React.FC = () => {
     loadFood();
   }, [routeParams]);
 
+  useEffect(() => {
+    async function loadIsFavorite(): Promise<void> {
+      try {
+        const response = await api.get(`favorites/${routeParams.id}`);
+
+        response.data && setIsFavorite(true);
+      } catch (error) {
+        console.log('it is not a favorite food');
+      }
+    }
+
+    loadIsFavorite();
+  }, [routeParams]);
+
   function handleIncrementExtra(id: number): void {
     setExtras(state => {
       return state.map(extraState => {
@@ -126,7 +141,17 @@ const FoodDetails: React.FC = () => {
     if (isFavorite) {
       api.delete(`favorites/${food.id}`);
     } else {
-      api.post(`favorites/`, food);
+      const { name, description, category, image_url, thumbnail_url } = food;
+
+      const data = {
+        name,
+        description,
+        category,
+        image_url,
+        thumbnail_url,
+      };
+
+      api.post(`favorites/`, data);
     }
 
     setIsFavorite(!isFavorite);
