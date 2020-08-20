@@ -100,7 +100,7 @@ const FoodDetails: React.FC = () => {
 
         response.data && setIsFavorite(true);
       } catch (error) {
-        console.log('it is not a favorite food');
+        console.log(error);
       }
     }
 
