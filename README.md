@@ -10,17 +10,9 @@
 
 GoRestaurant is app applying CRUD concepts from goStack challenge using fake api to connect.
 
-### Food plates available 🥙
-
-<img src="https://media.giphy.com/media/hrdPxoQh3bHSCZv5vi/giphy.gif">
-
-### Ordering your food 🍽
-
-<img src="https://media.giphy.com/media/kgD0jBIAiRbeJiVnDQ/giphy.gif">
-
-### You can favorite too ⭐
-
-<img src="https://media.giphy.com/media/f41wUi5fY5xsTL7zq4/giphy.gif">
+Food plates available 🥙 | Ordering your food 🍽 | You can favorite too ⭐
+------------ | ------------- | -------------
+<img src="https://media.giphy.com/media/hrdPxoQh3bHSCZv5vi/giphy.gif"> | <img src="https://media.giphy.com/media/kgD0jBIAiRbeJiVnDQ/giphy.gif"> | <img src="https://media.giphy.com/media/f41wUi5fY5xsTL7zq4/giphy.gif">
 
 <br />
 
