@@ -48,8 +48,7 @@ $ for android: yarn json-server --host "yourIPV4" server.json -p 3333 -w
 
 <br />
 
-## 🚀 Running goRestaurant
-
+## 🚀 Running app
 run your AVD emulator
 
 ```
